@@ -31,6 +31,49 @@ Ahora hacemos esto asi ya que el patron de diseño Strategy lo usamos con el obj
 
 producto representa el objeto con nombre y un precio, cartitem representa un producto con su cantidad dentro del carrito, discountstrategy es la interfaz que define el comportamiento de calculo de descuento, discountnuevo es la estrategia de descuento para nuevos clientes, dicountfrecuente es la estrategia de decuento para clientes frecuentes, carrito es donde gestionamos los productos y el subtotal mas los descuentos, receiptgenerator es donde se genera el recibo de lo comprado, y el Maindemo es donde ejecutamos o sea la clase principal del reto1
 
+Ahora para los principios SOLID los dividimos de esta forma para la funcionalidad de nuestro reto:
+
+#### Principio de Responsabilidad Unica
+
+En el Reto 1 aplicamos el principio de responsabilidad única separando claramente las funciones de cada clase. Por ejemplo, la clase Producto solo representa la información de un producto, Carrito se encarga de gestionar los productos y calcular los valores de la compra, las clases de descuento en discountNuevo y DiscountFrecuente solo calculan el descuento, y ReceiptGenerator se encarga de generar el recibo De esta forma cada clase tiene un propósito específico y no mezcla varias responsabilidades
+
+#### Principio Abierto/Cerrado 
+
+Aplicamos el principio abierto/cerrado al diseñar el sistema de descuentos mediante la interfaz DiscountStrategy Gracias a esto, si en el futuro queremos agregar un nuevo tipo de descuento no es necesario modificar la clase Carrito, sino simplemente crear una nueva clase que implemente la interfaz el sistema puede extenderse sin alterar el código existente lo que hace la solución más flexible y fácil de mantener
+
+#### Principio de Sustitución de Liskov
+
+El principio de sustitución de Liskov se cumple porque las clases DiscountNuevo y DiscountFrecuente pueden usarse en lugar de DiscountStrategy sin afectar el funcionamiento del programa En el carrito no importa qué tipo de descuento se esté utilizando ya que todas las estrategias cumplen el mismo contrato definido por la interfaz Esto permite cambiar el comportamiento del descuento sin romper la lógica del sistema
+
+#### Principio de Segregación de Interfaces
+
+En nuestra solución aplicamos el principio de segregación de interfaces al definir una interfaz DiscountStrategy sencilla que contiene únicamente el método necesario para calcular el descuento De esta manera las clases que implementan la interfaz no se ven obligadas a depender de métodos que no necesitan lo que mantiene las interfaces simples, claras y enfocadas en una sola funcionalidad
+
+#### Principio de Inversión de Dependencias
+
+Aplicamos el principio de inversión de dependencias haciendo que la clase Carrito dependa de la abstracción DiscountStrategy y no de las implementaciones concretas de los descuentos. Esto permite cambiar fácilmente la estrategia de descuento sin modificar el código del carrito Gracias a esto el sistema queda menos acoplado y más preparado para futuros cambios o extensiones
+
+Ahora despues de lo explicada ejecutamos nuestro main y nos da como restado esto en nuestra terminal:
+
+<img width="284" height="187" alt="image" src="https://github.com/user-attachments/assets/7a50d0c1-f015-4de9-b8cd-8fb0c1ceac11" />
+
+<img width="250" height="175" alt="image" src="https://github.com/user-attachments/assets/adf90f7f-2dbe-49de-8cca-6ba62e163554" />
+
+Lo que nos indica que nuestro codigo funciona ya que se aplican los descuentos y los productos de acuerdo a como se propone en el reto
+
+En visual nos queda una estructura de esta forma 
+
+<img width="945" height="779" alt="image" src="https://github.com/user-attachments/assets/fc1b65fe-0134-40c0-9f40-2246633bdf53" />
+
+Ahora con respecto al polimorfismo se aplica dentrro de la clase de la interfaz de DiscountStrategy, la clase de carrito trabaja con la abstraccion discountstrategy pero cuando se ejecuta se pueden usar diferentes implementaciones siendo discountnuevo o discountfrecuente
+
+<img width="723" height="136" alt="image" src="https://github.com/user-attachments/assets/4e9af3ee-7f8e-45ea-a493-750fd62b8452" />
+
+<img width="639" height="844" alt="image" src="https://github.com/user-attachments/assets/ea071881-21d0-446f-ac6a-d13e901184b7" />
+
+Ambos objetos son tratados como discountstrategy pero ejecutan comportamientos diferentes segun el cliente ya que pues hay 2 tipos diferentes de descuento, esto permite que un mismo metodo tenga multiples comportamientos dependiendo de la estrategia utilizada
+
+
 
 
 

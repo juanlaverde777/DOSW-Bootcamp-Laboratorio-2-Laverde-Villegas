@@ -18,6 +18,22 @@
 - Compilación por 'mvn exec:java -D"exec.mainClass=edu.dosw.bootcamp.lab.DOSW_Bootcamp_Laboratorio_02.DoswBootcampLaboratorio02Application"'
 ![img.png](docs/imagenes/SegundaEvidencia.png)
 
+### RETO 1
+Iniciamos este reto creando una nueva branch para trabajar separados del main 
+
+<img width="950" height="359" alt="image" src="https://github.com/user-attachments/assets/aae97956-e3ac-4c3b-a312-08b9dc7cfc0c" />
+
+Una vez tenemos nuestro espacio de trabajo configurado creamos dentro de la carpeta de comportamiento nuestro Reto 1 ya que usaremos este patron para darle solucion a nuestro problema C:\Users\josef\DOSW-Bootcamp-Laboratorio-2-Laverde-Villegas\src\main\java\edu\dosw\bootcamp\lab\DOSW_Bootcamp_Laboratorio_02\comportamiento 
+
+Ahora hacemos esto asi ya que el patron de diseño Strategy lo usamos con el objetico de aplicar diferentyes estrategias de descuento segun el tipo de cliente. para esto pensamos una estuctura de clase de esta forma: 
+
+<img width="276" height="173" alt="image" src="https://github.com/user-attachments/assets/29eccbd8-d9d2-426f-acdb-938b3edbe6f6" />
+
+producto representa el objeto con nombre y un precio, cartitem representa un producto con su cantidad dentro del carrito, discountstrategy es la interfaz que define el comportamiento de calculo de descuento, discountnuevo es la estrategia de descuento para nuevos clientes, dicountfrecuente es la estrategia de decuento para clientes frecuentes, carrito es donde gestionamos los productos y el subtotal mas los descuentos, receiptgenerator es donde se genera el recibo de lo comprado, y el Maindemo es donde ejecutamos o sea la clase principal del reto1
+
+
+
+
 ### Preguntas inciales
  
 - 1)¿Qué ventaja ofrece el polimorfismo en el diseño de clases frente al uso de múltiples condicionales para determinar el comportamiento de un objeto?

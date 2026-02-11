@@ -110,6 +110,38 @@ Finalmente validamos la solucion ejecutando la aplicacion desde el main comproba
 - ¿Cómo lo aplicó?: ExchangeConsoleApp lee múltiples transacciones por consola, ConversionService solicita un convertidor al ConverterFactory para cada moneda origen y CurrencyConverter (basado en tasas reales) convierte a los destinos; luego agrega totales por moneda con streams.
 
 
+#### Reto 5: El Café Personalizado
+
+para este reto el tipo de patron que usamos fue el de Patrones Estructurales Decorator 
+
+Para este reto decidimos usar el patrón Decorator porque necesitábamos una forma de agregar toppings a un café base sin tener que crear una clase diferente para cada combinación posible de ingredientes si tuviéramos que crear clases como CafeConLecheYChocolate o CafeConCarameloYMentaYCremaBatida sería un desastre y terminaríamos con cientos de clases que básicamente hacen lo mismo pero con diferentes combinaciones
+
+El patrón Decorator nos permite ir envolviendo el café base con capas de toppings de forma dinámica, entonces podemos crear cualquier combinación que el cliente quiera sin modificar el código existente. Además cumple perfectamente con el principio Open/Closed de SOLID porque podemos agregar nuevos toppings simplemente creando nuevas clases decoradoras sin tocar las que ya existen.
+
+Cómo lo aplicamos?
+
+<img width="360" height="258" alt="image" src="https://github.com/user-attachments/assets/fe267a8a-9de5-482d-b1a5-2c17616d595d" />
+
+Lo primero que hicimos fue crear una interfaz Cafe que define los métodos básicos que cualquier café debe tener, que son getDescripcion para saber qué ingredientes tiene y getPrecio para calcular cuánto cuesta. Luego creamos la clase CafeBase que es nuestro café simple sin nada agregado, este tiene un precio base de tres mil pesos y su descripción es simplemente Café base.
+
+Después creamos la clase abstracta ToppingDecorator que implementa la interfaz Cafe y tiene una referencia a otro objeto Cafe. Esta clase es la clave del patrón porque permite que los decoradores se envuelvan unos a otros como si fueran capas de una cebolla. Cada decorador concreto como Leche o Chocolate o Caramelo extiende esta clase abstracta y en sus métodos llama primero al café que está decorando y luego agrega su propia información.
+
+<img width="688" height="373" alt="image" src="https://github.com/user-attachments/assets/2650a7b1-19ee-4630-b4ce-101520ae76c8" />
+
+
+Por ejemplo cuando creamos un café con leche y chocolate, lo que pasa internamente es que primero tenemos el CafeBase, luego lo envolvemos con Leche que agrega mil pesos y concatena más Leche a la descripción, y después envolvemos todo eso con Chocolate que suma mil quinientos pesos más y agrega más Chocolate a la descripción. Así cuando llamamos a getPrecio nos da el total sumando todo en cadena y cuando llamamos a getDescripcion obtenemos la lista completa de ingredientes.
+
+También agregamos la funcionalidad de toppings personalizados con la clase ToppingPersonalizado que permite al usuario inventar su propio topping con el nombre y precio que quiera. Esto hace el sistema super flexible porque no estamos limitados solo a los toppings predefinidos.
+
+En la clase principal Reto5CafePersonalizado manejamos la interacción con el usuario mostrando un menú de toppings disponibles y permitiendo que seleccione varios a la vez separados por comas. Guardamos todos los cafés creados en una lista y al final usamos streams de Java para calcular el precio total sumando los precios de todos los cafés con mapToDouble y sum. También mostramos un resumen bonito de cada café con sus ingredientes y precio individual.
+
+<img width="933" height="908" alt="image" src="https://github.com/user-attachments/assets/b8a39209-0dff-4632-9c4b-e35ee75174ad" />
+
+El patrón Decorator nos dio exactamente lo que necesitábamos, una forma elegante de componer objetos dinámicamente agregando responsabilidades sin crear explosión de clases y manteniendo el código limpio y fácil de extender.
+
+<img width="520" height="495" alt="image" src="https://github.com/user-attachments/assets/32ab3e8d-2983-47b1-9d2f-decfb3709415" />
+
+
 
 
 

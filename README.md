@@ -76,10 +76,16 @@ Ambos objetos son tratados como discountstrategy pero ejecutan comportamientos d
 #### RETO 2
 
 - Categoría del patrón de diseño: Creacional
-- Patrón Utilizado: Builder
-- Justificación: El armado de la hamburguesa se hace paso a paso y puede variar según los ingredientes elegidos, por lo que separar la construcción del resultado final mantiene el código claro y abierto a nuevas combinaciones.
-- ¿Cómo lo aplicó?: El ChefApp guía al usuario por consola para elegir ingredientes, BurgerChef usa CustomBurgerBuilder para añadir cada paso y Burger calcula el total con streams, mostrando al final la hamburguesa personalizada.
+- Patrón utilizado: Builder
+- Detalle de la solución: El chef virtual arma la hamburguesa por etapas, según los ingredientes que el usuario va eligiendo. ChefApp muestra el menú base, permite ingresar ingredientes personalizados y entrega la selección a BurgerChef, que orquesta el proceso con CustomBurgerBuilder para ir agregando cada ingrediente en orden. Burger encapsula el resultado final y calcula el precio total con streams, sumando los valores de cada ingrediente.
 
+
+![alt text](image-4.png)
+
+- Por qué Builder: La combinación de ingredientes es abierta y puede crecer; separar el armado de la instancia final evita constructores gigantes y mantiene el código preparado para nuevas opciones sin romper lo existente.
+- Cómo se ve en ejecución: El flujo en consola guía al usuario, lista la hamburguesa completa con los ingredientes seleccionados y muestra el total formateado. Si el usuario no elige nada, se informa que no hay ingredientes; si agrega un ingrediente propio, se integra al cálculo igual que los predefinidos.
+
+![alt text](image.png)
 #### RETO 3
 
 En el reto 3 desarrollamos una solucion aplicando el patron Factory Method para centralizar la creacion de distintos tipos de vehiculos La idea principal fue evitar condicionales repetidos en la aplicacion principal y delegar toda la logica de creacion a una unica clase responsable de fabricar los objetos Esto nos permitio tener un codigo mas limpio escalable y facil de mantener especialmente cuando se agregan nuevos tipos categorias o modelos de vehiculos
@@ -103,12 +109,14 @@ Finalmente validamos la solucion ejecutando la aplicacion desde el main comproba
 
 
 #### RETO 4
-
+![alt text](image-2.png)
 - Categoría del patrón de diseño: Creacional
-- Patrón Utilizado: Factory Method
-- Justificación: La creación de un convertidor adecuado para la moneda origen se delega a un método fábrica, permitiendo cambiar o extender las tasas sin alterar el flujo de captura o reporte.
-- ¿Cómo lo aplicó?: ExchangeConsoleApp lee múltiples transacciones por consola, ConversionService solicita un convertidor al ConverterFactory para cada moneda origen y CurrencyConverter (basado en tasas reales) convierte a los destinos; luego agrega totales por moneda con streams.
+- Patrón utilizado: Factory Method
+- Detalle de la solución: Cada transacción puede venir en una moneda distinta, así que la creación del convertidor depende de la moneda origen. ConverterFactory devuelve el CurrencyConverter apropiado (actualmente BaseRateConverter con tasas reales expresadas en USD por unidad). ConversionService toma la lista de destinos, delega la conversión al convertidor y agrega los resultados por moneda con streams para entregar totales consolidados.
+- Por qué Factory Method: Evita condicionales repetidos para elegir convertidor, facilita agregar nuevas fuentes de tasas o proveedores sin tocar el flujo de entrada y salida, y mantiene la lógica de captura separada de la lógica de creación.
+- Cómo se ve en ejecución: ExchangeConsoleApp pide cuántas transacciones se quieren convertir, solicita monto, moneda de origen y destinos separados por coma, muestra cada conversión y al final presenta un resumen de totales por moneda. El formato numérico se deja listo para lectura en consola y los errores de entrada (monto o moneda inválida) se controlan pidiendo reintento.
 
+![alt text](image-1.png)
 
 #### Reto 5: El Café Personalizado
 
@@ -143,7 +151,36 @@ El patrón Decorator nos dio exactamente lo que necesitábamos, una forma elegan
 
 
 
+### Reto 8
 
+### Diseño de la Solución y Principios SOLID
+
+Para el diseño de la arquitectura del ECI Zoo, se optó por una estructura orientada a objetos que prioriza la mantenibilidad y la escalabilidad, aplicando los siguientes principios:
+
+Principio de Responsabilidad Única (SRP): Se definieron responsabilidades claras para cada entidad con el fin de evitar clases saturadas de lógica. La clase Animal se encarga estrictamente de los datos biológicos y el estado de salud, mientras que las acciones de mantenimiento y la experiencia del usuario se delegan a las clases Cuidador y Visitante, respectivamente. La lógica de creación se aisló completamente en clases de fabricación especializadas.
+
+Principio de Abierto/Cerrado (OCP): La arquitectura permite la extensión sin necesidad de modificar el código fuente existente. Para los atributos dinámicos requeridos (color, historial, rareza), se implementó una estructura de datos flexible en la clase base que permite agregar nuevas características en tiempo de ejecución. Asimismo, el uso de una clase abstracta para los animales permite integrar nuevas especies simplemente extendiendo la jerarquía.
+
+Principio de Sustitución de Liskov (LSP): El diseño asegura que las subclases como Mamifero, Ave o Reptil puedan ser utilizadas indistintamente allí donde se requiera un objeto de tipo Animal. Esto garantiza que el sistema de gestión pueda procesar cualquier especie sin conocer sus detalles internos, manteniendo la integridad del programa.
+
+Principio de Inversión de Dependencias (DIP): Las interacciones entre los actores y los animales se realizan a través de abstracciones e interfaces. El Visitante y el Cuidador no dependen de tipos concretos de animales, sino de la definición general de Animal y la interfaz IInteractuable, lo que reduce el acoplamiento y facilita cambios futuros.
+
+### Patrones de Diseño Implementados
+
+Para resolver los retos de creación y configuración de los objetos dentro del zoológico, se aplicaron dos patrones fundamentales:
+
+Factory Method: Se centralizó la lógica de instanciación en la clase ZooFactory. Este patrón permite que el resto del sistema solicite la creación de animales sin preocuparse por la lógica interna de inicialización de cada especie, encapsulando el uso de constructores y permitiendo un control total sobre el inventario del zoológico.
+
+Builder: Debido a la gran cantidad de atributos que posee un Animal (datos físicos, dieta, estado de salud y atributos dinámicos), se implementó el patrón Builder. Esto permite construir los objetos paso a paso, mejorando significativamente la legibilidad del código y evitando errores comunes al configurar múltiples parámetros opcionales o complejos.
+
+Estructura de Clases y Relaciones
+
+Herencia en Actores: Se implementó una clase abstracta Persona para agrupar los atributos de nombre y edad, heredados tanto por Cuidador como por Visitante. Esto optimiza el código y permite una gestión uniforme de los usuarios del sistema.
+
+Asociaciones: El diagrama refleja una asociación directa entre el Cuidador y los animales asignados para su mantenimiento, así como las relaciones de interacción del Visitante, quien puede registrar sus favoritos, realizar donaciones o registrar material fotográfico, todo de manera desacoplada.
+
+- Diagrama de clases 
+![alt text](image-3.png)
 
 ### Preguntas inciales
  

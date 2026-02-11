@@ -73,6 +73,42 @@ Ahora con respecto al polimorfismo se aplica dentrro de la clase de la interfaz 
 
 Ambos objetos son tratados como discountstrategy pero ejecutan comportamientos diferentes segun el cliente ya que pues hay 2 tipos diferentes de descuento, esto permite que un mismo metodo tenga multiples comportamientos dependiendo de la estrategia utilizada
 
+#### RETO 2
+
+- Categoría del patrón de diseño: Creacional
+- Patrón Utilizado: Builder
+- Justificación: El armado de la hamburguesa se hace paso a paso y puede variar según los ingredientes elegidos, por lo que separar la construcción del resultado final mantiene el código claro y abierto a nuevas combinaciones.
+- ¿Cómo lo aplicó?: El ChefApp guía al usuario por consola para elegir ingredientes, BurgerChef usa CustomBurgerBuilder para añadir cada paso y Burger calcula el total con streams, mostrando al final la hamburguesa personalizada.
+
+#### RETO 3
+
+En el reto 3 desarrollamos una solucion aplicando el patron Factory Method para centralizar la creacion de distintos tipos de vehiculos La idea principal fue evitar condicionales repetidos en la aplicacion principal y delegar toda la logica de creacion a una unica clase responsable de fabricar los objetos Esto nos permitio tener un codigo mas limpio escalable y facil de mantener especialmente cuando se agregan nuevos tipos categorias o modelos de vehiculos
+
+La estrategia consistio en definir una clase base Vehicle que representa el concepto general de un vehiculo y a partir de ella crear clases concretas como Car Bicycle Motorcycle Boat Airplane Avioneta Helicopter y JetSki Cada una hereda de Vehicle y representa una implementacion especifica Luego creamos enums como VehicleType Category y Model para estandarizar las opciones que el usuario puede elegir y reducir errores al momento de crear los objetos
+
+<img width="278" height="326" alt="image" src="https://github.com/user-attachments/assets/e37eca38-aead-4434-b431-9dfb952f464a" />
+
+El nucleo del patron se implemento en la clase VehicleFactory donde a partir del tipo categoria y modelo seleccionados se devuelve la instancia correcta del vehiculo con sus atributos ya configurados como precio velocidad y equipamiento De esta forma la clase ApplicationReto3 solo se encarga de interactuar con el usuario leer las opciones y utilizar la fabrica sin conocer los detalles internos de como se construye cada vehiculo Esto cumple con el principio de responsabilidad unica y separa claramente la logica de negocio de la logica de creacion de objetos
+
+<img width="1139" height="874" alt="image" src="https://github.com/user-attachments/assets/92642a54-6c13-4d2b-9547-5b79ce20df59" />
+
+
+Finalmente validamos la solucion ejecutando la aplicacion desde el main comprobando que se pudieran crear multiples vehiculos agregarlos a una lista y calcular correctamente los totales Con esto logramos una implementacion coherente del patron creacional solicitada bien organizada dentro del paquete creacionales reto3 y lista para integrarse al proyecto principal sin afectar el trabajo de otros retos
+
+<img width="457" height="444" alt="image" src="https://github.com/user-attachments/assets/af9c4589-26a0-479b-8151-7dadae5e832e" />
+
+<img width="375" height="315" alt="image" src="https://github.com/user-attachments/assets/1eeafd75-bdc2-4c81-a07b-a7a0e969a42f" />
+
+
+
+
+#### RETO 4
+
+- Categoría del patrón de diseño: Creacional
+- Patrón Utilizado: Factory Method
+- Justificación: La creación de un convertidor adecuado para la moneda origen se delega a un método fábrica, permitiendo cambiar o extender las tasas sin alterar el flujo de captura o reporte.
+- ¿Cómo lo aplicó?: ExchangeConsoleApp lee múltiples transacciones por consola, ConversionService solicita un convertidor al ConverterFactory para cada moneda origen y CurrencyConverter (basado en tasas reales) convierte a los destinos; luego agrega totales por moneda con streams.
+
 
 
 
@@ -115,16 +151,4 @@ Ambos objetos son tratados como discountstrategy pero ejecutan comportamientos d
  
  - La diferencia está en el nivel de responsabilidad que tienen. Una interfaz define qué debe hacer una clase, pero no cómo hacerlo, es más un contrato. En cambio, una clase abstracta ya puede tener parte del comportamiento definido y compartir atributos o métodos entre sus subclases. Nosotros usamos interfaces cuando queremos flexibilidad y clases abstractas cuando hay lógica común que vale la pena reutilizar.
 
-### RETO 2
 
-- Categoría del patrón de diseño: Creacional
-- Patrón Utilizado: Builder
-- Justificación: El armado de la hamburguesa se hace paso a paso y puede variar según los ingredientes elegidos, por lo que separar la construcción del resultado final mantiene el código claro y abierto a nuevas combinaciones.
-- ¿Cómo lo aplicó?: El `ChefApp` guía al usuario por consola para elegir ingredientes, `BurgerChef` usa `CustomBurgerBuilder` para añadir cada paso y `Burger` calcula el total con streams, mostrando al final la hamburguesa personalizada.
-
-### RETO 4
-
-- Categoría del patrón de diseño: Creacional
-- Patrón Utilizado: Factory Method
-- Justificación: La creación de un convertidor adecuado para la moneda origen se delega a un método fábrica, permitiendo cambiar o extender las tasas sin alterar el flujo de captura o reporte.
-- ¿Cómo lo aplicó?: `ExchangeConsoleApp` lee múltiples transacciones por consola, `ConversionService` solicita un convertidor al `ConverterFactory` para cada moneda origen y `CurrencyConverter` (basado en tasas reales) convierte a los destinos; luego agrega totales por moneda con streams.

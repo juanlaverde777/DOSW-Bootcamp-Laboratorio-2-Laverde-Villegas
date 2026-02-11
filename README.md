@@ -71,3 +71,17 @@ producto representa el objeto con nombre y un precio, cartitem representa un pro
 ### Respuesta:
  
  - La diferencia está en el nivel de responsabilidad que tienen. Una interfaz define qué debe hacer una clase, pero no cómo hacerlo, es más un contrato. En cambio, una clase abstracta ya puede tener parte del comportamiento definido y compartir atributos o métodos entre sus subclases. Nosotros usamos interfaces cuando queremos flexibilidad y clases abstractas cuando hay lógica común que vale la pena reutilizar.
+
+### RETO 2
+
+- Categoría del patrón de diseño: Creacional
+- Patrón Utilizado: Builder
+- Justificación: El armado de la hamburguesa se hace paso a paso y puede variar según los ingredientes elegidos, por lo que separar la construcción del resultado final mantiene el código claro y abierto a nuevas combinaciones.
+- ¿Cómo lo aplicó?: El `ChefApp` guía al usuario por consola para elegir ingredientes, `BurgerChef` usa `CustomBurgerBuilder` para añadir cada paso y `Burger` calcula el total con streams, mostrando al final la hamburguesa personalizada.
+
+### RETO 4
+
+- Categoría del patrón de diseño: Creacional
+- Patrón Utilizado: Factory Method
+- Justificación: La creación de un convertidor adecuado para la moneda origen se delega a un método fábrica, permitiendo cambiar o extender las tasas sin alterar el flujo de captura o reporte.
+- ¿Cómo lo aplicó?: `ExchangeConsoleApp` lee múltiples transacciones por consola, `ConversionService` solicita un convertidor al `ConverterFactory` para cada moneda origen y `CurrencyConverter` (basado en tasas reales) convierte a los destinos; luego agrega totales por moneda con streams.

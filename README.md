@@ -221,3 +221,11 @@ Asociaciones: El diagrama refleja una asociación directa entre el Cuidador y lo
  - La diferencia está en el nivel de responsabilidad que tienen. Una interfaz define qué debe hacer una clase, pero no cómo hacerlo, es más un contrato. En cambio, una clase abstracta ya puede tener parte del comportamiento definido y compartir atributos o métodos entre sus subclases. Nosotros usamos interfaces cuando queremos flexibilidad y clases abstractas cuando hay lógica común que vale la pena reutilizar.
 
 
+# OBSERVACIONES - GENERALES
+<img width="801" height="268" alt="image" src="https://github.com/user-attachments/assets/c8b8a9eb-a328-445e-9885-8b10cf337e6f" />
+<img width="801" height="654" alt="image" src="https://github.com/user-attachments/assets/dc7a8ede-123f-4cce-accf-2ebe1dad4cbf" />
+<img width="802" height="369" alt="image" src="https://github.com/user-attachments/assets/9ef31c42-b97f-471f-9466-fa8b40ee780e" />
+
+
+## NOTA
+<img width="351" height="107" alt="image" src="https://github.com/user-attachments/assets/d9771737-a710-4809-9572-63b35001294c" />
